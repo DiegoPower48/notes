@@ -81,7 +81,7 @@ cd ..
 # 6. Agregar alias de arranque automático (si no existe)
 if ! grep -q "start-notes" ~/.bashrc; then
   info "🔗 Añadiendo alias start-notes a ~/.bashrc"
-  echo "alias start-notes='cd ~/notes-app/backend && npm run build && npm run start:prod & cd ~/notes-app/frontend && npm run build && npm start'" >> ~/.bashrc
+  echo "alias start-notes='cd ~/notes/backend && npm run build && npm run start:prod & cd ~/notes/frontend && npm run build && npm start'" >> ~/.bashrc
 fi
 
 # 7. Recargar bashrc para que el alias funcione de inmediato
