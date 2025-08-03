@@ -45,6 +45,7 @@ npm install
 if [ ! -f .env ]; then
   info "Creating backend/.env file..."
   cat <<EOF > .env
+URL=3005
 DATABASE_URL="mysql://user:1234@localhost:3306/notesdb"
 JWT_SECRET=secreto
 JWT_TIME=30
