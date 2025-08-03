@@ -44,7 +44,7 @@ export default function Home() {
       <div className="w-full max-w-[500px] h-[400px] flex flex-col items-center justify-center shadow-2xl shadow-sidebar rounded-xl bg-white border-sidebar border-1 text-primary-foreground p-8">
         <form
           onSubmit={submit}
-          className="h-full w-full grid grid-rows-[1fr_auto_3fr_1fr] items-center justify-center gap-2"
+          className="h-full w-full grid text-black grid-rows-[1fr_auto_3fr_1fr] items-center justify-center gap-2"
         >
           <div className="w-full flex flex-col justify-center gap-2">
             <p className="text-3xl font-bold">Login</p>
@@ -90,7 +90,7 @@ export default function Home() {
             </div>
           </div>
           <Button
-            className="bg-sidebar text-primary-foreground hover:bg-accent hover:text-accent-foreground shadow-lg shadow-indigo-500/50 flex gap-4 transition-all duration-300 transfor"
+            className="bg-sidebar text-primary-foreground hover:bg-yellow-600 hover:text-accent-foreground shadow-lg shadow-indigo-500/50 flex gap-4 transition-all duration-300 transfor"
             type="submit"
             disabled={loading}
           >
