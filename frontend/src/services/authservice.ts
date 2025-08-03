@@ -29,10 +29,11 @@ const Fetch = {
         {},
         {
           headers: {
-            Authorization: `Bearer ${getCookie('token')}`,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getCookie("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
+          withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
         }
       );
     } catch (error: any) {

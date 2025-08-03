@@ -28,6 +28,7 @@ const Fetch = {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
       return data.data;
     } catch (error: any) {
@@ -43,6 +44,7 @@ const Fetch = {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
       return data.data;
     } catch (error: any) {
@@ -58,6 +60,7 @@ const Fetch = {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
+        withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
       return data.data;
     } catch (error: any) {
@@ -71,7 +74,12 @@ const Fetch = {
         `${URL}/notes/${id}`,
         {},
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
         }
       );
       return data.data;
@@ -82,6 +90,7 @@ const Fetch = {
   },
   getFilter: async (body: Filter) => {
     try {
+      console.log(getCookie("token"));
       const data = await axios.get(
         `${URL}/notes/filter?active=${body.archive}&category=${body.category}`,
         {
@@ -90,6 +99,7 @@ const Fetch = {
             Accept: "application/json",
             "Content-Type": "application/json",
           },
+          withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
         }
       );
       return data.data;
