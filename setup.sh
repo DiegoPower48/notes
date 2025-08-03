@@ -34,7 +34,7 @@ info "Creando base de datos y usuario para desarrollo..."
 sudo mysql <<EOF
 CREATE DATABASE IF NOT EXISTS notesdb;
 CREATE USER IF NOT EXISTS 'user'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON notesdb.* TO 'user'@'localhost';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 EOF
 
