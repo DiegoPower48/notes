@@ -2,7 +2,7 @@ import axios from "axios";
 import { getCookie } from "cookies-next";
 
 const URL = process.env.NEXT_PUBLIC_API_URL;
-
+const token = getCookie("token");
 interface Create {
   category: string;
   text: string;
@@ -24,9 +24,7 @@ const Fetch = {
     try {
       const data = await axios.post(`${URL}/notes`, body, {
         headers: {
-          Authorization: `Bearer ${getCookie("token")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
@@ -40,9 +38,7 @@ const Fetch = {
     try {
       const data = await axios.patch(`${URL}/notes`, body, {
         headers: {
-          Authorization: `Bearer ${getCookie("token")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
@@ -56,9 +52,7 @@ const Fetch = {
     try {
       const data = await axios.delete(`${URL}/notes/${id}`, {
         headers: {
-          Authorization: `Bearer ${getCookie("token")}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
       });
@@ -75,9 +69,7 @@ const Fetch = {
         {},
         {
           headers: {
-            Authorization: `Bearer ${getCookie("token")}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
         }
@@ -95,9 +87,7 @@ const Fetch = {
         `${URL}/notes/filter?active=${body.archive}&category=${body.category}`,
         {
           headers: {
-            Authorization: `Bearer ${getCookie("token")}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
         }

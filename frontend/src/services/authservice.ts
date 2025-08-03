@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCookie, setCookie } from "cookies-next";
+import { deleteCookie, setCookie } from "cookies-next";
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Payload {
@@ -10,13 +10,10 @@ interface Payload {
 const Fetch = {
   login: async (payload: Payload) => {
     try {
-      const data = await axios.post(`${URL}/users/login`, payload, {
-        withCredentials: true,
-      });
-      setCookie("token", data.data.message, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
-      });
+      const response = await axios.post(`${URL}/users/login`, payload);
+      const token = response.data.token;
+      if (!token) throw new Error("No token received");
+      setCookie("token", token);
     } catch (error: any) {
       const message = error?.response?.data?.message || "Server Error";
       throw new Error(message);
@@ -24,21 +21,9 @@ const Fetch = {
   },
   logout: async () => {
     try {
-      await axios.post(
-        `${URL}/users/logout`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${getCookie("token")}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          withCredentials: true, // 👈 MUY IMPORTANTE si usas cookies cross-origin
-        }
-      );
+      deleteCookie("token"); // elimina el token en logout
     } catch (error: any) {
-      const message = error?.response?.data?.message || "Logout: Server Error";
-      throw new Error(message);
+      throw new Error("Logout error");
     }
   },
 };
