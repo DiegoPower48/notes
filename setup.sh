@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function info() {
   echo -e "\033[1;34m[INFO]\033[0m $1"
 }
@@ -7,29 +5,29 @@ function error() {
   echo -e "\033[1;31m[ERROR]\033[0m $1"
 }
 
-info "🚀 Iniciando setup de la aplicación..."
+info "🚀 Starting application setup..."
 
-# Darse permisos a sí mismo
-info "Otorgando permisos de ejecución al script..."
+
+info "Granting execution permissions to the script..."
 chmod +x "$0"
 
-# 1. Instalar Node.js LTS
-info "Instalando Node.js LTS..."
+# 1. Install Node.js LTS
+info "Installing Node.js LTS..."
 curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get install -y nodejs
 node -v && npm -v
 
-# 2. Instalar MySQL
-info "Instalando MySQL Server..."
+# 2. Install MySQL
+info "Installing MySQL Server..."
 sudo apt-get update
 sudo apt-get install -y mysql-server
 
-info "Iniciando servicio de MySQL..."
+info "Starting MySQL service..."
 sudo systemctl enable mysql
 sudo systemctl start mysql
 
-# 3. Crear base de datos y usuario
-info "Creando base de datos y usuario para desarrollo..."
+# 3. Create database and user
+info "Creating development database and user..."
 
 sudo mysql <<EOF
 CREATE DATABASE IF NOT EXISTS notesdb;
@@ -39,13 +37,13 @@ FLUSH PRIVILEGES;
 EOF
 
 # 4. Backend
-info "Instalando dependencias del backend..."
-cd backend || { error "No se encontró la carpeta backend"; exit 1; }
+info "Installing backend dependencies..."
+cd backend || { error "Backend folder not found"; exit 1; }
 npm install
 
-# Crear archivo .env si no existe
+# Create .env file if it doesn't exist
 if [ ! -f .env ]; then
-  info "Creando archivo backend/.env..."
+  info "Creating backend/.env file..."
   cat <<EOF > .env
 DATABASE_URL="mysql://user:1234@localhost:3306/notesdb"
 JWT_SECRET=secreto
@@ -53,24 +51,24 @@ JWT_TIME=30
 EOF
 fi
 
-# Ejecutar migraciones
-info "🏗️ Ejecutando migraciones..."
-npx prisma migrate dev --name create_tables_user_note || { error "Fallo al ejecutar migraciones"; exit 1; }
+# Run migrations
+info "🏗️ Running migrations..."
+npx prisma migrate dev --name create_tables_user_note || { error "Migration execution failed"; exit 1; }
 
-# Ejecutar seeders
-info "🌱 Ejecutando seeders..."
-npm run seed || { error "Fallo al ejecutar seeders"; exit 1; }
+# Run seeders
+info "🌱 Running seeders..."
+npm run seed || { error "Seeder execution failed"; exit 1; }
 
 cd ..
 
 # 5. Frontend
-info "Instalando dependencias del frontend..."
-cd frontend || { error "No se encontró la carpeta frontend"; exit 1; }
+info "Installing frontend dependencies..."
+cd frontend || { error "Frontend folder not found"; exit 1; }
 npm install
 
-# Crear archivo .env si no existe
+# Create .env file if it doesn't exist
 if [ ! -f .env.local ]; then
-  info "Creando archivo frontend/.env.local..."
+  info "Creating frontend/.env.local file..."
   cat <<EOF > .env.local
 NEXT_PUBLIC_API_URL=http://localhost:3005
 EOF
@@ -78,18 +76,10 @@ fi
 
 cd ..
 
-# 6. Agregar alias de arranque automático (si no existe)
-if ! grep -q "start-notes" ~/.bashrc; then
-  info "🔗 Añadiendo alias start-notes a ~/.bashrc"
-  echo "alias start-notes='cd ~/notes/backend && npm run build && npm run start:prod & cd ~/notes/frontend && npm run build && npm start'" >> ~/.bashrc
-fi
 
-# 7. Recargar bashrc para que el alias funcione de inmediato
-info "🔄 Recargando ~/.bashrc..."
-source ~/.bashrc
+info "🚀 Starting backend and frontend..."
 
-# 8. Ejecutar alias
-info "🚀 Iniciando backend y frontend con alias start-notes..."
-start-notes
+cd backend && npm run build && npm run start:prod & cd .. & cd frontend && npm run build && npm start
 
-info "✅ Instalación y ejecución completa."
+info "✅ Installation and execution completed."
+
