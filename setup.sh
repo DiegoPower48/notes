@@ -33,8 +33,8 @@ info "Creando base de datos y usuario para desarrollo..."
 
 sudo mysql <<EOF
 CREATE DATABASE IF NOT EXISTS notesdb;
-CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED BY '1234';
-GRANT ALL PRIVILEGES ON notesdb.* TO 'root'@'localhost';
+CREATE USER IF NOT EXISTS 'user'@'localhost' IDENTIFIED BY '1234';
+GRANT ALL PRIVILEGES ON notesdb.* TO 'user'@'localhost';
 FLUSH PRIVILEGES;
 EOF
 
@@ -47,7 +47,7 @@ npm install
 if [ ! -f .env ]; then
   info "Creando archivo backend/.env..."
   cat <<EOF > .env
-DATABASE_URL="mysql://root:1234@localhost:3306/notesdb"
+DATABASE_URL="mysql://user:1234@localhost:3306/notesdb"
 JWT_SECRET=secreto
 JWT_TIME=30
 EOF
