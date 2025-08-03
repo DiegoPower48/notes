@@ -14,7 +14,7 @@ import * as path from 'path';
     NotesModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: path.resolve(__dirname, '../.env'),
+      envFilePath: path.resolve(__dirname, '../../.env'),
     }),
   ],
   controllers: [AppController],
