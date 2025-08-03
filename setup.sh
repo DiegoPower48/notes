@@ -54,7 +54,7 @@ fi
 
 # Run migrations
 info "🏗️ Running migrations..."
-npx prisma migrate deploy || { error "Migration execution failed"; exit 1; }
+npx prisma migrate dev --name create_tables_user_note || { error "Migration execution failed"; exit 1; }
 
 # Run seeders
 info "🌱 Running seeders..."
