@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `note` ALTER COLUMN `userId` DROP DEFAULT;
