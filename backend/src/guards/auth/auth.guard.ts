@@ -37,7 +37,7 @@ export class AuthGuard implements CanActivate {
       res.clearCookie('token', {
         httpOnly: true,
         secure: true,
-        sameSite: 'lax',
+        sameSite: 'none',
       });
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
