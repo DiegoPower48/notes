@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setCookie } from "cookies-next";
+import { getCookie, setCookie } from "cookies-next";
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Payload {
@@ -28,7 +28,11 @@ const Fetch = {
         `${URL}/users/logout`,
         {},
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${getCookie('token')}`,
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
         }
       );
     } catch (error: any) {

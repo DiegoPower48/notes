@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getCookie } from "cookies-next";
 
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -22,7 +23,11 @@ const Fetch = {
   createNote: async (body: Create) => {
     try {
       const data = await axios.post(`${URL}/notes`, body, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${getCookie("token")}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
       return data.data;
     } catch (error: any) {
@@ -33,7 +38,11 @@ const Fetch = {
   editNotes: async (body: Edit) => {
     try {
       const data = await axios.patch(`${URL}/notes`, body, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${getCookie("token")}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
       return data.data;
     } catch (error: any) {
@@ -44,7 +53,11 @@ const Fetch = {
   deleteNotes: async (id: number) => {
     try {
       const data = await axios.delete(`${URL}/notes/${id}`, {
-        withCredentials: true,
+        headers: {
+          Authorization: `Bearer ${getCookie("token")}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
       });
       return data.data;
     } catch (error: any) {
@@ -72,7 +85,11 @@ const Fetch = {
       const data = await axios.get(
         `${URL}/notes/filter?active=${body.archive}&category=${body.category}`,
         {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
         }
       );
       return data.data;
