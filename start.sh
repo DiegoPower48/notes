@@ -12,7 +12,7 @@ info "🚀 Starting backend and frontend..."
 cd backend || { error "Backend folder not found"; exit 1; }
 
 info "🏗️ Building backend..."
-npm run start:dev || { error "Backend build failed"; exit 1; }
+npm run start || { error "Backend build failed"; exit 1; }
 BACKEND_PID=$!
 
 cd ..
