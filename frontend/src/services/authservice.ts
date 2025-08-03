@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import { setCookie } from "cookies-next";
 const URL = process.env.NEXT_PUBLIC_API_URL;
 
 interface Payload {
@@ -10,8 +10,12 @@ interface Payload {
 const Fetch = {
   login: async (payload: Payload) => {
     try {
-      await axios.post(`${URL}/users/login`, payload, {
+      const data = await axios.post(`${URL}/users/login`, payload, {
         withCredentials: true,
+      });
+      setCookie("token", data.data.message, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
       });
     } catch (error: any) {
       const message = error?.response?.data?.message || "Server Error";
