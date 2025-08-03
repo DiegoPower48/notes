@@ -24,8 +24,6 @@ export class AuthGuard implements CanActivate {
         HttpStatus.UNAUTHORIZED,
       );
     }
-    console.log(this.jwtService);
-    console.log(process.env.JWT_SECRET);
     try {
       const payload = await this.jwtService.verifyAsync(token, {
         secret: process.env.JWT_SECRET,
@@ -37,7 +35,7 @@ export class AuthGuard implements CanActivate {
       res.clearCookie('token', {
         httpOnly: true,
         secure: true,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
