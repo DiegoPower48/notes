@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { NotesModule } from './notes/notes.module';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { NotesModule } from './notes/notes.module';
     NotesModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: path.resolve(__dirname, '../.env'),
     }),
   ],
   controllers: [AppController],
