@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { hash } from 'bcrypt';
+import 'dotenv/config'; // 👈 esto importa el .env automáticamente
 
 const prisma = new PrismaClient();
 
